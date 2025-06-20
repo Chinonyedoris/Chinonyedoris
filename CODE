@@ -1,0 +1,69 @@
+from fpdf import FPDF
+
+# Create PDF class
+class PDF(FPDF):
+    def header(self):
+        self.set_font("Arial", "B", 12)
+        self.cell(0, 10, "Creative Hub App – UX Case Study Presentation", ln=True, align="C")
+        self.ln(5)
+        
+    def chapter_title(self, title):
+        self.set_font("Arial", "B", 12)
+        self.set_text_color(0, 0, 128)
+        self.cell(0, 10, title, ln=True)
+        self.ln(2)
+
+    def chapter_body(self, body):
+        self.set_font("Arial", "", 11)
+        self.set_text_color(0, 0, 0)
+        self.multi_cell(0, 10, body)
+        self.ln()
+
+# Instantiate PDF
+pdf = PDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+pdf.add_page()
+
+# Slide contents in Markdown-like format
+slides = [
+    ("Slide 1: Cover Page", 
+     "Title: Creative Hub App\nSubtitle: A UX Design Case Study\nBy: [Your Name]\nRole: UX Researcher & Product Designer\nTools: Figma, Miro, Notion, Google Forms\nDate: [Insert Date]"),
+    
+    ("Slide 2: Problem Statement & Goals", 
+     "Problem Statement:\nCreatives often struggle with fragmented platforms for showcasing, collaborating, and finding inspiration. Tools are either too complex or lack community features.\n\nProject Goals:\n- Create a minimalistic platform tailored for creatives\n- Enable seamless collaboration and project upload\n- Support moodboard-style inspiration curation\n- Gather real user feedback for iteration"),
+    
+    ("Slide 3: User Research", 
+     "Methodologies:\n- 5 user interviews\n- 1 competitive analysis (Behance, Notion, Dribbble)\n- Google Forms survey with 15+ creatives\n\nKey Findings:\n- Users want fast and intuitive upload features\n- Collaboration is often too technical or hidden\n- People crave community and inspiration boards"),
+    
+    ("Slide 4: Personas", 
+     "Persona 1 – Carla (Freelance Illustrator):\nNeeds an easy way to share and get feedback on artwork.\n\nPersona 2 – Dave (UX Designer):\nWants a clean, professional space to show mockups and collaborate.\n(Insert images of persona profiles here)"),
+    
+    ("Slide 5: User Journey & Insights", 
+     "User Journey Map:\nSketch out user path from app entry → project upload → team invite → community feedback.\n\nKey Pain Points Identified:\n- Too many upload steps\n- Difficulty in tracking collaboration progress\n- No single platform to do it all"),
+    
+    ("Slide 6: MVP Feature Set", 
+     "Prioritization using MoSCoW Framework:\n- Must Have: Project upload, collaboration invite, feedback modal\n- Should Have: Moodboard, explore tab\n- Could Have: File versioning, scheduling\n- Won’t Have (Yet): AI recommendations, social feeds"),
+    
+    ("Slide 7: Wireframes", 
+     "Low-Fidelity Sketches: Quick idea exploration\nMid-Fidelity Wireframes: More structure, with user flows mapped\nPages: Home, Upload, Project Detail, Invite, Moodboard\n(Insert wireframe screenshots here)"),
+    
+    ("Slide 8: Interactive Prototype", 
+     "Tool Used: Figma\nUser Flow Covered:\nHome > Upload Project > Add Details > Invite Collaborator > Moodboard > Submit\nLink: [Insert clickable prototype link]\n(Embed preview if converting to PDF)"),
+    
+    ("Slide 9: User Feedback", 
+     "Initial Testing Feedback (5 users):\n“I love how clean the interface feels.”\n“Took me less than a minute to upload a project!”\n“Can I get notifications when collaborators comment?”\n\nNext Iteration Plans:\n- Add notifications\n- Introduce simple style themes\n- Improve navigation between Moodboard and Projects"),
+    
+    ("Slide 10: Tools & Next Steps", 
+     "Tools Used:\n- Figma – Wireframes & Prototype\n- Miro – Journey maps\n- Notion – Documentation\n- Google Forms – Survey\n\nNext Steps:\n- Build UI components in React/Flutter\n- Conduct usability testing with 10 new users\n- Prepare for real-world MVP development")
+]
+
+# Add slide content to PDF
+for title, body in slides:
+    pdf.chapter_title(title)
+    pdf.chapter_body(body)
+
+# Save the file
+pdf_output_path = "/mnt/data/Creative_Hub_App_UX_Case_Study.pdf"
+pdf.output(pdf_output_path)
+
+pdf_output_path
